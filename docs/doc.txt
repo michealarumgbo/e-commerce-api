@@ -1,0 +1,345 @@
+E-commerce checks
+User authentication and authorization
+Product catalog
+Shopping cart
+Orders
+Payments (or a mock payment flow if you don't want to use a real gateway)
+Inventory management
+Image uploads
+Email notifications
+API documentation (OpenAPI/Swagger)
+Unit and integration tests
+Docker
+CI/CD (GitHub Actions)
+Deployment (Render, Railway, Fly.io, or AWS)
+
+
+Domains
+Authentication
+Users
+Products
+Categories
+Inventory
+Cart
+Orders
+Payments
+Reviews
+Addresses
+Coupons
+Admin
+
+
+Models
+Product
+--------
+id
+name
+slug
+description
+brand
+categoryId
+status
+createdAt
+updatedAt
+
+Variant
+id
+productId
+sku
+price
+stock
+weight
+
+Product Image
+id
+productId
+url
+position
+
+Category
+id
+name
+parentCategoryId
+
+Inventory
+id
+variantId
+quantity
+reservedQuantity
+
+Cart
+
+id
+userId
+
+Cart Items
+
+id
+cartId
+variantId
+quantity
+
+Order
+
+id
+userId
+status (Pending Paid Cancelled Delivered Refunded)
+
+Order Items
+
+id
+orderId
+variantId
+priceAtPurchase
+quantity
+
+
+Address
+
+id
+userId
+street
+city
+state
+country
+zip
+isDefault
+
+Payment
+
+id
+orderId
+provider(Flutterwave Paystack Stripe)
+status(Pending Success Failed)
+reference
+amount
+currency
+
+
+Coupon
+
+id
+code(WELCOME20)
+discountType(Percentage/Fixed)
+value
+expiration
+usageLimit
+
+Review
+
+id
+userId
+productId
+rating
+comment
+
+Wishlist
+
+id
+userId
+
+Wishlist Item
+
+id
+wishlistId
+productId
+
+
+
+
+
+Authentication
+Register
+
+Login
+
+Refresh Token
+
+Logout
+
+Forgot Password
+
+Reset Password
+
+Email Verification
+
+
+Admin
+
+Admin should manage
+
+Products
+
+Categories
+
+Coupons
+
+Orders
+
+Inventory
+
+Users
+
+Permissions
+USER
+
+ADMIN
+
+SUPER_ADMIN
+
+Middleware
+
+auth()
+
+authorize("ADMIN")
+
+
+
+Order Flow
+User
+
+↓
+
+Add to Cart
+
+↓
+
+Checkout
+
+↓
+
+Create Order
+
+↓
+
+Reserve Stock
+
+↓
+
+Payment
+
+↓
+
+Verify Payment
+
+↓
+
+Payment Success
+
+↓
+
+Reduce Inventory
+
+↓
+
+Order Confirmed
+
+↓
+
+Ship
+
+↓
+
+Delivered
+
+
+src/
+│
+├── config/
+├── controllers/
+├── services/
+├── repositories/
+├── models/
+├── routes/
+├── middleware/
+├── validators/
+├── utils/
+├── events/
+├── jobs/
+├── sockets/
+├── docs/
+├── tests/
+└── server.js
+
+
+
+API END POINTS
+Auth
+POST /auth/register
+POST /auth/login
+POST /auth/refresh
+POST /auth/verify-email
+POST /auth/logout
+POST /auth/forgot-password
+POST /auth/reset-password
+
+Products
+GET /products
+GET /products/:slug
+POST /products
+PATCH /products/:id
+DELETE /products/:id
+
+Variants
+POST /products/:id/variants
+PATCH /variants/:id
+DELETE /variants/:id
+
+Categories
+GET /categories
+POST /categories
+PATCH /categories/:id
+DELETE /categories/:id
+
+Cart
+GET /cart
+POST /cart/items
+PATCH /cart/items/:id
+DELETE /cart/items/:id
+
+Orders
+POST /orders
+GET /orders
+GET /orders/:id
+PATCH /orders/:id/status
+
+
+Payments
+POST /payments/initialize
+POST /payments/webhook
+GET /payments/:reference
+
+
+Reviews
+POST /products/:id/reviews
+GET /products/:id/reviews
+PATCH /reviews/:id
+DELETE /reviews/:id
+
+
+future features
+Soft deletes for products and categories instead of permanent deletion.
+Pagination, filtering, and sorting (by price, category, brand, rating, newest).
+Search by product name, brand, and description.
+Database transactions when creating orders and updating inventory.
+Optimistic locking or row-level locking during checkout to prevent overselling.
+Redis caching for frequently accessed product listings.
+Rate limiting on authentication and checkout endpoints.
+Audit logs for admin actions (product updates, inventory changes).
+API documentation with OpenAPI/Swagger.
+Comprehensive tests (unit, integration, and end-to-end).
+Docker and Docker Compose for local development.
+CI/CD with GitHub Actions.
+
+
+
+Authentication (JWT access/refresh tokens)
+Categories
+Products & Variants
+Inventory
+Cart
+Orders
+Payments
+Reviews
+Image uploads (e.g., Cloudinary or S3)
+Testing with Vitest

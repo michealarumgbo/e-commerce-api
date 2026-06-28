@@ -1,4 +1,4 @@
-import { STATUS_CODE } from "./constants";
+import { STATUS_CODE } from "./constants.js";
 
 export class BaseError extends Error {
   status = 500;
