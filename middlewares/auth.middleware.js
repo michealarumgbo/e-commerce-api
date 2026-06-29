@@ -8,7 +8,7 @@ import {
   NotFoundError,
   UnAuthenticatedError,
   UnauthourizedError,
-} from "../errors";
+} from "../errors.js";
 
 dotenv.config();
 

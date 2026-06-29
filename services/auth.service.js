@@ -1,4 +1,4 @@
-import { BadRequestError } from "../errors.js";
+import { BadRequestError, NotFoundError } from "../errors.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import { newAccessToken, newRefreshToken } from "../utils/functions.js";
@@ -33,7 +33,7 @@ export const createUser = async (data = {}) => {
   const userData = user.toObject();
   delete userData.password;
 
-  return { user: userData, accessToken, refreshToken };
+  return { ...userData, accessToken, refreshToken };
 };
 
 // create admin
@@ -65,5 +65,45 @@ export const createAdmin = async (data = {}) => {
   const userData = user.toObject();
   delete userData.password;
 
-  return { user: userData, accessToken, refreshToken };
+  return { ...userData, accessToken, refreshToken };
+};
+
+// login
+export const loginUser = async (data = {}) => {
+  // check is user exists
+  const user = await User.findOne({ email: data.email });
+
+  if (!user) {
+    throw NotFoundError("Invalid Email or Password");
+  }
+
+  // check passwords match
+  const passwordMatch = await bcrypt.compare(data.password, user.password);
+
+  if (!passwordMatch) {
+    throw NotFoundError("Invalid Email or Password");
+  }
+
+  //   get tokens
+  const accessToken = newAccessToken(user);
+  const refreshToken = newRefreshToken(user);
+
+  await RefreshToken.updateOne(
+    { user: user._id },
+    {
+      token: refreshToken,
+    },
+  );
+
+  const userData = user.toObject();
+  delete userData.password;
+
+  return { ...userData, accessToken, refreshToken };
+};
+
+// new access token
+export const newToken = async (user) => {
+  const accessToken = newAccessToken(user);
+
+  return accessToken;
 };

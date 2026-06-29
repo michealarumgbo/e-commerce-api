@@ -7,7 +7,7 @@ export const createUser = async (req, res) => {
 
   res.status(STATUS_CODE.CREATED).json({
     message: "User registered successfully",
-    data: user,
+    user: user,
   });
 };
 
@@ -17,6 +17,26 @@ export const createAdmin = async (req, res) => {
 
   res.status(STATUS_CODE.CREATED).json({
     message: "User registered successfully",
-    data: user,
+    user: user,
+  });
+};
+
+// login user(any type of role)
+export const login = async (req, res) => {
+  const user = await authService.loginUser(req.body);
+
+  res.status(STATUS_CODE.SUCCESS).json({
+    message: "Log in successful",
+    user: user,
+  });
+};
+
+// new access token
+export const newToken = async (req, res) => {
+  const accessToken = await authService.newToken(req.user);
+
+  res.status(STATUS_CODE.SUCCESS).json({
+    message: "New Token Generated Successfully",
+    user: { accessToken },
   });
 };
