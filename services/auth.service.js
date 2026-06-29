@@ -107,3 +107,8 @@ export const newToken = async (user) => {
 
   return accessToken;
 };
+
+// logout
+export const logoutUser = async (user) => {
+  await RefreshToken.updateOne({ user: user._id }, { token: "" });
+};

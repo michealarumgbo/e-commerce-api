@@ -7,6 +7,7 @@ import {
   createAdmin,
   createUser,
   login,
+  logout,
   newToken,
 } from "../controllers/auth.controller.js";
 import { loginSchema } from "../validations/login.validate.js";
@@ -20,5 +21,6 @@ router.post("/", validate({ body: registerSchema }), createUser);
 router.post("/admin", validate({ body: registerSchema }), createAdmin);
 router.post("/login", validate({ body: loginSchema }), login);
 router.get("/new-token", auth(process.env.JWT_REFRESH_SECRET), newToken);
+router.post("/logout", auth(), logout);
 
 export default router;

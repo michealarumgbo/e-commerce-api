@@ -40,3 +40,10 @@ export const newToken = async (req, res) => {
     user: { accessToken },
   });
 };
+
+// logout
+export const logout = async (req, res) => {
+  await authService.logoutUser(req.user);
+
+  res.status(STATUS_CODE.SUCCESS).json({ message: "Logout successful" });
+};
