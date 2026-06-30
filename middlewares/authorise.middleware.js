@@ -1,6 +1,6 @@
-import { UnauthourizedError } from "../errors";
+import { UnauthourizedError } from "../errors.js";
 
-export const authrise = (...roles) => {
+export const authorise = (...roles) => {
   return async (req, res, next) => {
     const user = req.user;
 

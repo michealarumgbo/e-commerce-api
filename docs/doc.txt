@@ -265,13 +265,14 @@ src/
 
 API END POINTS
 Auth
-POST /auth/register
+POST /auth/ -- create user
 POST /auth/login
-POST /auth/refresh
-POST /auth/verify-email
+GET /auth/new-token
+POST /auth/verify-email **not yet 
 POST /auth/logout
-POST /auth/forgot-password
-POST /auth/reset-password
+POST /auth/forgot-password **not yet
+POST /auth/reset-password **not yet
+POST /auth/admin -- create admin
 
 Products
 GET /products
@@ -287,6 +288,7 @@ DELETE /variants/:id
 
 Categories
 GET /categories
+GET /categories/:id
 POST /categories
 PATCH /categories/:id
 DELETE /categories/:id

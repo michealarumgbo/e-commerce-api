@@ -26,3 +26,16 @@ export const newRefreshToken = (user = {}) => {
     { expiresIn: "7d" },
   );
 };
+
+// create slug from name
+export const createSlug = (name = "") => {
+  name = name.toLocaleLowerCase();
+  name = name.replaceAll(" ", "-");
+
+  return name;
+};
+
+// // create SLK (name-color-weight/(ram/storage))
+// export const createSLK = (specs = {}) => {
+//   specs.name = specs.name.toLocaleLowerCase();
+// };

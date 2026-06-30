@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import authRoute from "./routes/auth.route.js";
+import categoryRoute from "./routes/category.route.js";
 
 import errorMiddleware from "./middlewares/error.middleware.js";
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // routes
 app.use("/api/auth", authRoute);
+app.use("/api/categories", categoryRoute);
 
 // 404
 app.use((req, res) => {
