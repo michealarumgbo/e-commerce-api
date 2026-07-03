@@ -143,3 +143,13 @@ export const deleteCategory = async (id) => {
 
   return;
 };
+
+// get a category by its slug
+export const getCategoryBySlug = async (slug) => {
+  const category = Category.findOne({ slug: slug });
+  if (!category) {
+    throw NotFoundError("Category not found");
+  }
+
+  return category;
+};

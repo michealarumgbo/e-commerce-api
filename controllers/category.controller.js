@@ -33,6 +33,13 @@ export const getCategory = async (req, res) => {
   res.status(STATUS_CODE.SUCCESS).json({ category });
 };
 
+// get a category(by slug)
+export const getCategoryBySlug = async (req, res) => {
+  const category = await categoryService.getCategoryBySlug(req.params.slug);
+
+  res.status(STATUS_CODE.SUCCESS).json({ category });
+};
+
 // delete a category
 export const deleteCategory = async (req, res) => {
   await categoryService.deleteCategory(req.params.id);

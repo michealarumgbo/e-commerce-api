@@ -8,6 +8,7 @@ import {
   editCategory,
   getCategories,
   getCategory,
+  getCategoryBySlug,
 } from "../controllers/category.controller.js";
 import { validate } from "../middlewares/validate.middleware.js";
 import {
@@ -33,7 +34,8 @@ router.post(
   validate({ body: categorySchema }),
   createCategory,
 );
-router.get("/", auth(), authorise("admin"), getCategories);
-router.get("/:id", auth(), authorise("admin"), getCategory);
+router.get("/", auth(), authorise("admin", "super_admin"), getCategories);
+router.get("/id/:id", auth(), authorise("admin", "super_admin"), getCategory);
+router.get("/slug/:slug", auth(), getCategoryBySlug);
 router.delete("/:id", auth(), authorise("admin"), deleteCategory);
 export default router;

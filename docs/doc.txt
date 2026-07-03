@@ -289,6 +289,7 @@ DELETE /variants/:id
 Categories
 GET /categories
 GET /categories/:id
+GET /categories/:slug
 POST /categories
 PATCH /categories/:id
 DELETE /categories/:id
